@@ -18,7 +18,7 @@
   - name: uninstall service status
     yum:
      name: httpd
-     state: absent
+     state: present
     when: result.stdout != "active"
   
 
