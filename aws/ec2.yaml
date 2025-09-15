@@ -9,5 +9,6 @@
        availability_zone: "us-east-1a"
        image_id: "ami-0b09ffb6d8b58ca91"
        name: "srinu"
+       region: "us-east-1"
 
      
