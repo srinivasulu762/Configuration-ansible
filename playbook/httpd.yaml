@@ -21,4 +21,4 @@
         name: httpd
         state: started
         enabled: yes
-    when: result.result.stdout != "active"
+    when: result.stdout != "active"
