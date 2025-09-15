@@ -19,7 +19,7 @@
     yum:
      name: httpd
      state: present
-    when: result.stdout != "active"
+    when: result.stdout = "active"
   
 
  
