@@ -11,7 +11,7 @@
     ignore_errors: yes
   
   - name: debug service status
-    when: result.stdout == "active"
+    when: result.stdout == "active" 
     debug:
      msg: "httpd serive is running"
 
@@ -19,7 +19,12 @@
     yum:
      name: httpd
      state: present
+    register: final 
     when: result.stdout != "active"
-  
+
+  - name: final output 
+    debug:
+     msg: echo {{ final }}
+
 
  
