@@ -12,17 +12,19 @@ pipeline {
 
         stage('Remote Connection Check') {
             steps {
-                withCredentials([sshUserPrivateKey(
-                    credentialsId: 'ansible-ssh', 
-                    keyFileVariable: 'ssh', 
-                    usernameVariable: 'username'
-                )]) {
-                    script {
-                        echo "Using keyfile: ${ssh}, username: ${username}"
+                script {
+                    withCredentials([sshUserPrivateKey(
+                        credentialsId: 'ansible-ssh',
+                        keyFileVariable: 'ssh',
+                        usernameVariable: 'username'
+                    )]) {
+                        echo "🔑 Using keyfile: ${ssh}, username: ${username}"
+
                         def result = sh(
-                            script: "ANSIBLE_HOST_KEY_CHECKING=False ansible all -i inventory/dev.ini -m ping --private-key \"${ssh}\" -u \"${username}\"",
+                            script: "ANSIBLE_HOST_KEY_CHECKING=False ansible all  -i inventory/dev.ini -m ping --private-key '${ssh}'",
                             returnStatus: true
                         )
+
                         if (result != 0) {
                             error "❌ Remote connection check failed. Please check the connection or inventory."
                         } else {
