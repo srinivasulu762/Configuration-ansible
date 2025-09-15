@@ -11,14 +11,16 @@
     ignore_errors: yes
 
   - name: debug service status
-    debug:
-     msg: httpd service is running"
     when: result.stdout == "active"
+    debug:
+     msg: "httpd service is running"
+    
 
 
   - name: start httpd service
+    when: result.stdout != "active"
     service:
         name: httpd
         state: started
         enabled: yes
-    when: result.stdout != "active"
+ 
