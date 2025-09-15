@@ -1,0 +1,13 @@
+---
+- name: ec2 instnace create
+  hosts: localhost
+  gather_facts: no
+  tasks:
+   - name: ec2_istance
+     amazon.aws.ec2_instance:
+       instance_type: "t2.micro"
+       availability_zone: "us-east-1a"
+       image_id: "ami-0b09ffb6d8b58ca91"
+       name: "srinu"
+
+     

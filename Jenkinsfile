@@ -10,39 +10,19 @@ pipeline {
             }
         }
 
-        stage('Remote Connection Check') {
+        stage('Run AWS Configuration Playbook') {
             steps {
-                script {
-                    withCredentials([sshUserPrivateKey(
-                        credentialsId: 'ansible-ssh',
-                        keyFileVariable: 'ssh',
-                        usernameVariable: 'username'
-                    )]) {
-                        echo "🔑 Using keyfile: ${ssh}, username: ${username}"
-
-                        def result = sh(
-                            script: "ANSIBLE_HOST_KEY_CHECKING=False ansible all  -i inventory/dev.ini -m ping --private-key '${ssh}'",
-                            returnStatus: true
-                        )
-
-                        if (result != 0) {
-                            error "❌ Remote connection check failed. Please check the connection or inventory."
-                        } else {
-                            echo "✅ Remote connection check succeeded."
-                        }
-                    }
+                withCredentials([
+                    [$class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: 'Aws_cli',
+                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']
+                ]) {
+                    sh '''
+                        ansible-galaxy collection install amazon.aws
+                        ansible-playbook aws/ec2.yaml
+                    '''
                 }
-            }
-        }
-
-        stage('Run Ansible Playbook') {
-            steps {
-                ansiblePlaybook(
-                    credentialsId: 'ansible-ssh',
-                    installation: 'ansible-1.0',
-                    inventory: 'inventory/dev.ini',
-                    playbook: 'playbook/httpd.yaml'
-                )
             }
         }
     }
