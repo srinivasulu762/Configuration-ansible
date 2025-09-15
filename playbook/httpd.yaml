@@ -19,7 +19,6 @@
     yum:
      name: httpd
      state: absent
-    register: final 
     when: result.stdout == "active"
 
   - name: check again status
