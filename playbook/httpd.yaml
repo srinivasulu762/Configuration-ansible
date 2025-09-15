@@ -22,8 +22,4 @@
     when: result.stdout != "active"
   
 
-  - name: install httpd in hosts
-    yum:
-        name: httpd
-        state: present
  
