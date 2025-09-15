@@ -6,7 +6,7 @@
   tasks:
 
   - name: get service status 
-    command: systemctl status httpd
+    command: systemctl status httpd.service
     register: result
     ignore_errors: yes
   
@@ -22,7 +22,7 @@
     when: result.stdout == "active"
 
   - name: check again status
-    command: systemctl status httpd 
+    command: systemctl status httpd.service 
     register: final
     ignore_errors: yes
 
