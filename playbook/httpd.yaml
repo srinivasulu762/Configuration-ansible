@@ -9,18 +9,21 @@
     command: systemctl status httpd
     register: result
     ignore_errors: yes
-
+  
   - name: debug service status
     when: result.stdout == "active"
     debug:
-     msg: "httpd service is running"
-    
+     msg: "httpd serive is running"
 
-
-  - name: start httpd service
+  - name: uninstall service status
+    yum:
+     name: httpd
+     state: absent
     when: result.stdout != "active"
-    service:
+  
+
+  - name: install httpd in hosts
+    yum:
         name: httpd
-        state: started
-        enabled: yes
+        state: present
  
