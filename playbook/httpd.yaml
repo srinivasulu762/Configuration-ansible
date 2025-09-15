@@ -18,13 +18,17 @@
   - name: uninstall service status
     yum:
      name: httpd
-     state: present
+     state: absent
     register: final 
-    when: result.stdout != "active"
+    when: result.stdout == "active"
 
-  - name: final output 
+  - name: check again status
+    command: systemctl status httpd 
+    register: final
+    ignore_errors: yes
+
+  - name: debug
     debug:
-     msg: echo {{ final }}
-
+      msg: "echo {{ final }}"  
 
  
