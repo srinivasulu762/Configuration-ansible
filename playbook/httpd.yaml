@@ -1,34 +1,10 @@
 ---
-- name: Install or reinstall httpd based on service status
-  hosts: webservers
-  become: yes
-  gather_facts: yes
-
+- name: gatheting facts
+  host: Qaserver
   tasks:
+   - name: show the ansible family 
+     debug:
+       msg: "{{ ansible_os_family }}"
 
-    - name: Check if httpd is active
-      command: systemctl is-active httpd.service
-      register: result
-      ignore_errors: yes
 
-    - name: Debug httpd status
-      debug:
-        msg: "httpd service status is: {{ result.stdout }}"
-
-    - name: Uninstall httpd if service is active
-      yum:
-        name: httpd
-        state: absent
-      when: result.stdout == "active"
-
-    - name: Install httpd
-      yum:
-        name: httpd
-        state: present
-      when: result.stdout != "active"
-
-    - name: Ensure httpd is started and enabled
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+       

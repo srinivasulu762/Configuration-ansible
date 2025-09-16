@@ -19,6 +19,9 @@ pipeline {
                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']
                 ]) {
                     sh '''
+                        pip install --upgrade pip
+
+                        pip install boto3 botocore
                         ansible-galaxy collection install amazon.aws
                         ansible-playbook aws/ec2.yaml
                     '''
