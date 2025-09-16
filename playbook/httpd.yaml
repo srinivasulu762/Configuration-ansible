@@ -2,8 +2,8 @@
 - name: gatheting facts
   hosts: Qaserver,webservers
   tasks:
-   - name: whoiam 
-     shell: whoiam
+   - name: whoami
+     shell: whoami
         
      
 
