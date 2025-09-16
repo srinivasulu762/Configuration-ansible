@@ -1,10 +1,9 @@
 ---
 - name: gatheting facts
-  host: Qaserver
+  hosts: Qaserver
   tasks:
    - name: show the ansible family 
      debug:
        msg: "{{ ansible_os_family }}"
 
 
-       
