@@ -1,6 +1,6 @@
 ---
 - name: gatheting facts
-  hosts: Qaserver
+  hosts: Qaserver,webservers
   tasks:
    - name: show the ansible family 
      debug:
