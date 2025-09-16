@@ -4,6 +4,12 @@
   tasks:
    - name: whoami
      shell: whoami
+     register: output 
+   - name: print ami 
+     debug:
+       msg: {{ output.stdout }}   
+     
+
         
      
 
