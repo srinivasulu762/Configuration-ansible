@@ -7,7 +7,7 @@
      register: output 
    - name: print ami 
      debug:
-       msg: {{ output.stdout }}   
+       msg: "{{ output.stdout }}"   
      
 
         
