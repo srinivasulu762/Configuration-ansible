@@ -2,8 +2,9 @@
 - name: gatheting facts
   hosts: Qaserver,webservers
   tasks:
-   - name: show the ansible family 
-     debug:
-       msg: "{{ ansible_os_family }}"
+   - name: whoiam 
+     shell: whoiam
+        
+     
 
 
