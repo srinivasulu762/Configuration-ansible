@@ -1,8 +1,7 @@
 ---
 - name: gatheting facts
   hosts: Qaserver,webservers
-  become: true
-
+  become: true  
   tasks:
   - name: whoami
     shell: whoami
