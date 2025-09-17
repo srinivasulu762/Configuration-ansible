@@ -2,18 +2,16 @@
 - name: gatheting facts
   hosts: Qaserver,webservers
   become: true
-  become_user: jenkins
-  
-  tasks:
-   - name: whoami
-     shell: whoami
-     register: output 
-   - name: print ami 
-     debug:
-       msg: "{{ output.stdout }}"   
-     
 
-        
-     
+  tasks:
+  - name: whoami
+    shell: whoami
+    register: output
+  - name: print ami
+    debug:
+      msg: "{{ output.stdout }}"
+  - name: print some file 
+    debug: 
+      msg: "{{ lookup('file', '/etc/ansible/ansible.log') }}"
 
 

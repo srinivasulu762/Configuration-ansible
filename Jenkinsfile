@@ -1,15 +1,14 @@
 pipeline {
     agent any
-    
-   parameters {
-  choice choices: ['dev,qa,prod'], description: 'Select the inventory environment', name: 'env'
-}
 
-environment{
-    export ANSIBLE_CONFIG=/var/lib/jenkins/workspace/Ansibleconfiguration/inventory/${env}_ansible.cfg
 
+  parameters {
+        choice(
+            choices: ['dev', 'qa', 'prod'], 
+            description: 'Select the inventory environment', 
+            name: 'env'
+        )
     }
-
 
     stages {
         stage('Git Clone') {
@@ -30,7 +29,7 @@ environment{
                     script {
                         echo "Using keyfile: ${ssh}, username: ${username}"
                         def result = sh(
-                            script: "ansible all -m ping --private-key \"${ssh}\"",
+                            script: "ansible all -i inventory/{env}.ini -m ping --private-key \"${ssh}\"",
                             returnStatus: true
                         )
                         if (result != 0) {
@@ -48,6 +47,7 @@ environment{
                 ansiblePlaybook(
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
+                    inventory: 'inventory/${env}.ini',
                     playbook: 'playbook/httpd.yaml'
                 )
             }
