@@ -2,7 +2,6 @@
 - name: gatheting facts
   hosts: Qaserver,webservers
   become: true
-  become_user: jenkins
   
   tasks:
    - name: whoami
