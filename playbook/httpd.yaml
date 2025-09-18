@@ -1,26 +1,6 @@
 ---
-- name: Installing Java and Maven
-  hosts: all
-  become: true
-  vars_files:
-    - variable.yaml  # External variable file
-
+- name: host variabel testing
+  hosts: webservers
   tasks:
-    - name: Install Java
-      yum:
-        name: "{{ java_package }}"
-        state: "{{ state1 }}"
-
-    - name: Install Maven
-      yum:
-        name: "{{ maven_package }}"
-        state: "{{ state2 }}"
-
-    - name: Get Maven version
-      shell: mvn -v
-      register: maven_version_output
-      changed_when: false  # Don't mark as "changed" every time
-
-    - name: Print Maven version
-      debug:
-        var: maven_version_output.stdout_lines
+    - debug:
+        msg: "echo pritn of variale {{ a }} friend for {{ b }}"

@@ -8,17 +8,7 @@ pipeline {
             name: 'env'
         )
 
-        choice(
-            choices: ['present', 'absent'], 
-            description: 'Select the state1', 
-            name: 'state1'
-        )
-
-        choice(
-            choices: ['present', 'absent'], 
-            description: 'Select the state2', 
-            name: 'state2'
-        )
+       
     }
 
     stages {
@@ -59,11 +49,8 @@ pipeline {
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
                     inventory: "inventory/${env}.ini",
-                    playbook: 'playbook/httpd.yaml',
-                    extraVars: [
-                        state1: "${state1}",
-                        state2: "${state2}"
-                    ]
+                    playbook: 'playbook/httpd.yaml'
+                    
                 )
             }
         }
