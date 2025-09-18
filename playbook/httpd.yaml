@@ -4,3 +4,9 @@
   tasks:
     - debug:
         msg: "echo pritn of variale {{ a }} friend for {{ b }}"
+
+    - yum:
+        name: "{{ name }}"
+        state: "{{ state }}"
+        
+
