@@ -1,14 +1,13 @@
 pipeline {
     agent any
 
-    parameters {
+
+  parameters {
         choice(
             choices: ['dev', 'qa', 'prod'], 
             description: 'Select the inventory environment', 
             name: 'env'
         )
-
-       
     }
 
     stages {
@@ -30,7 +29,7 @@ pipeline {
                     script {
                         echo "Using keyfile: ${ssh}, username: ${username}"
                         def result = sh(
-                            script: "ansible all -i inventory/dev.ini -m ping --private-key \"${ssh}\"",
+                            script: "ANSIBLE_HOST_KEY_CHECKING=False ansible all -i inventory/dev.ini -m ping --private-key \"${ssh}\"",
                             returnStatus: true
                         )
                         if (result != 0) {
@@ -48,9 +47,8 @@ pipeline {
                 ansiblePlaybook(
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
-                    inventory: "inventory/dev.ini",
+                    inventory: 'inventory/hosts.ini',
                     playbook: 'playbook/httpd.yaml'
-                    
                 )
             }
         }
