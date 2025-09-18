@@ -9,12 +9,12 @@
     - name: Install Java
       yum:
         name: "{{ java_package }}"
-        state: "{{ state }}"
+        state: "{{ stage_1 }}"
 
     - name: Install Maven
       yum:
         name: "{{ maven_package }}"
-        state: present
+        state: "{{ stage_2 }}"
 
     - name: Get Maven version
       shell: mvn -v

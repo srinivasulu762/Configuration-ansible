@@ -6,7 +6,20 @@ pipeline {
         choice(
             choices: ['dev', 'qa', 'prod'], 
             description: 'Select the inventory environment', 
-            name: 'env'
+            name
+            
+             choice(
+            choices: ['present', 'absent'], 
+            description: 'Select the state1', 
+            name: 'state1'
+        )
+            
+             choice(
+            choices: ['present', 'absent'], 
+            description: 'Select the state1', 
+            name: 'state2'
+        )
+        
         )
     }
 
@@ -49,6 +62,11 @@ pipeline {
                     installation: 'ansible-1.0',
                     inventory: 'inventory/${env}.ini',
                     playbook: 'playbook/httpd.yaml'
+                    extraVars: [
+                        state1: '${state1}'
+                        state2: '${state2}'
+
+                    ]
                 )
             }
         }

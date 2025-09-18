@@ -1,3 +1,4 @@
 java_package: java-1.8.0-openjdk
 maven_package: maven
-state: absent
+state1: present
+state2: absent
