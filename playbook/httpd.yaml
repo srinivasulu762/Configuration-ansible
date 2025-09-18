@@ -1,6 +1,6 @@
 ---
 - name: host variabel testing
-  hosts: webservers
+  hosts: webservers,qaservers
   tasks:
     - debug:
         msg: "echo pritn of variale {{ a }} friend for {{ b }}"
