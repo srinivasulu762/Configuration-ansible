@@ -1,6 +1,7 @@
 ---
 - name: host variabel testing
   hosts: webservers,qaservers
+  become: true
   tasks:
      
     - debug:
