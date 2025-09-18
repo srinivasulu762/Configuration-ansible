@@ -15,8 +15,12 @@
       yum:
         name: "{{ maven_package }}"
         state: present
-      register: version
 
-    - name: Print Maven version output
+    - name: Get Maven version
+      shell: mvn -v
+      register: maven_version_output
+      changed_when: false  # Don't mark as "changed" every time
+
+    - name: Print Maven version
       debug:
-        var: version
+        var: maven_version_output.stdout_lines

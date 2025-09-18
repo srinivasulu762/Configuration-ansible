@@ -48,7 +48,7 @@ pipeline {
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
                     inventory: 'inventory/${env}.ini',
-                    playbook: 'playbook/var.yaml'
+                    playbook: 'playbook/httpd.yaml'
                 )
             }
         }
