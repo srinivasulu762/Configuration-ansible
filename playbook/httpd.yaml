@@ -1,16 +1,22 @@
 ---
-- name: gatheting facts
-  hosts: Qaserver,webservers
-  become: true  
+- name: Installing Java and Maven
+  hosts: all
+  become: true
+  vars_files:
+    - variable.yaml  # External variable file
+
   tasks:
-  - name: whoami
-    shell: whoami
-    register: output
-  - name: print ami
-    debug:
-      msg: "{{ output.stdout }}"
-  - name: print some file 
-    debug: 
-      msg: "{{ lookup('file', '/etc/ansible/ansible.log') }}"
+    - name: Install Java
+      yum:
+        name: "{{ java_package }}"
+        state: "{{ state }}"
 
+    - name: Install Maven
+      yum:
+        name: "{{ maven_package }}"
+        state: present
+      register: version
 
+    - name: Print Maven version output
+      debug:
+        var: version
