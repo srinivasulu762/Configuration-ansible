@@ -1,25 +1,23 @@
 pipeline {
     agent any
 
-
-  parameters {
+    parameters {
         choice(
             choices: ['dev', 'qa', 'prod'], 
             description: 'Select the inventory environment', 
-            name
-            
-             choice(
+            name: 'env'
+        )
+
+        choice(
             choices: ['present', 'absent'], 
             description: 'Select the state1', 
             name: 'state1'
         )
-            
-             choice(
+
+        choice(
             choices: ['present', 'absent'], 
-            description: 'Select the state1', 
+            description: 'Select the state2', 
             name: 'state2'
-        )
-        
         )
     }
 
@@ -42,7 +40,7 @@ pipeline {
                     script {
                         echo "Using keyfile: ${ssh}, username: ${username}"
                         def result = sh(
-                            script: "ansible all -i inventory/{env}.ini -m ping --private-key \"${ssh}\"",
+                            script: "ansible all -i inventory/${env}.ini -m ping --private-key \"${ssh}\"",
                             returnStatus: true
                         )
                         if (result != 0) {
@@ -60,12 +58,11 @@ pipeline {
                 ansiblePlaybook(
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
-                    inventory: 'inventory/${env}.ini',
-                    playbook: 'playbook/httpd.yaml'
+                    inventory: "inventory/${env}.ini",
+                    playbook: 'playbook/httpd.yaml',
                     extraVars: [
-                        state1: '${state1}'
-                        state2: '${state2}'
-
+                        state1: "${state1}",
+                        state2: "${state2}"
                     ]
                 )
             }
