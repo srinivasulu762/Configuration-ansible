@@ -30,7 +30,7 @@ pipeline {
                     script {
                         echo "Using keyfile: ${ssh}, username: ${username}"
                         def result = sh(
-                            script: "ansible all -i inventory/${env}.ini -m ping --private-key \"${ssh}\"",
+                            script: "ansible all -i inventory/dev.ini -m ping --private-key \"${ssh}\"",
                             returnStatus: true
                         )
                         if (result != 0) {
@@ -48,7 +48,7 @@ pipeline {
                 ansiblePlaybook(
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
-                    inventory: "inventory/${env}.ini",
+                    inventory: "inventory/dev.ini",
                     playbook: 'playbook/httpd.yaml'
                     
                 )
