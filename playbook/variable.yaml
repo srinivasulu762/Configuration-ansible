@@ -1,0 +1,3 @@
+java_package: java-11.0-openjdk
+maven_package: maven
+state: absent

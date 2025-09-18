@@ -1,20 +1,17 @@
 ---
-- name: Installing Java
+- name: Installing Java and Maven
   hosts: all
   become: true
-  vars:
-    java_package: java-1.8.0-openjdk
+  vars_files:
+    - variable.yaml  # This is the correct way to include external vars
+
   tasks:
     - name: Install Java
       yum:
-        name: "{{ java_package }}"
+       name: "{{ java_package }}"
+       state: present
+
+    - name: Install Maven
+      yum:
+        name: "{{ maven_package }}"
         state: present
-
-    - name: Check Java version
-      shell: java -version
-      register: java_version_output
-      ignore_errors: true
-
-    - name: Print Java version output
-      debug:
-        var: java_version_output.stderr_lines
