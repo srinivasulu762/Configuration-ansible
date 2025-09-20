@@ -4,11 +4,11 @@
   become: true
 
   tasks:
-    - name: Installing security packages
-      package:
-        name: "{{ item }}"
-        state: present
+    - name: creating users in servers
+      user:
+        name: "{{ item.name }}"
+        uid: "{{ item.access }}"
       loop:
-        - auditd
-        - aide
-        - firewalld
+        - { name: 'hari' , access: '0777'}
+        - { name: 'srinu' , access: '0644'}
+        - { name: 'priya' , access: '0444'}
