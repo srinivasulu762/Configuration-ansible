@@ -1,16 +1,14 @@
 ---
-- name: host variabel testing
-  hosts: webservers,qaservers
+- name: Loops of packages
+  hosts: all
   become: true
+
   tasks:
-     
-    - debug:
-        msg: "echo pritn of variale {{ a }} friend for {{ b }}"
-      when: "'webservers' in group_names"  
-
-    - yum:
-        name: "{{ name }}"
-        state: "{{ state }}"
-      when: "'qaservers' in group_names"  
-
-
+    - name: Installing security packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - auditd
+        - aide
+        - firewalld
