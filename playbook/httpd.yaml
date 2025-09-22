@@ -1,7 +1,7 @@
 ---
 - name: skiiping the failure task
   hosts: all
-  ignore_error: yes
+  ignore_errors: true
   tasks:
    - name: this is failure task
      yum:
