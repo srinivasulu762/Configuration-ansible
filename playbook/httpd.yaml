@@ -1,14 +1,9 @@
 ---
-- name: Loops of packages
+- name: skiiping the failure task
   hosts: all
-  become: true
-
   tasks:
-    - name: creating users in servers
-      user:
-        name: "{{ item.name }}"
-        uid: "{{ item.access }}"
-      loop:
-        - { name: 'hari' , access: '0777'}
-        - { name: 'srinu' , access: '0644'}
-        - { name: 'priya' , access: '0444'}
+   - name: this is failure task
+     yum:
+       name: pp
+       state: present
+       
