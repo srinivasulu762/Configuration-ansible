@@ -1,21 +1,26 @@
 ---
-- name: crating rescue and block,always
+- name: creating rescue and block, always
   hosts: all
+  become: yes  # optional: required if installing packages
   vars:
     webserver: http
     pgadmin: mariadb-server
     db_service: mariadb
-  tasks:
-   block:
-     yum:
-      name: {{ webserver }}
-      state: present
-   rescue:
-     - name: print if any fail 
-       debug:
-        msg: echo "{{ webserver }} got failed"  
-   always:
-     debug:
-       msg: always execute      
 
-      
+  tasks:
+    - name: Try to install webserver package
+      block:
+        - name: Install webserver package
+          yum:
+            name: "{{ webserver }}"
+            state: present
+
+      rescue:
+        - name: Print if installation fails
+          debug:
+            msg: "{{ webserver }} installation failed"
+
+      always:
+        - name: Always runs at the end
+          debug:
+            msg: "This task always executes"
