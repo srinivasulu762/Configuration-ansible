@@ -1,10 +1,21 @@
 ---
-- name: skiiping the failure task
+- name: crating rescue and block,always
   hosts: all
-  ignore_errors: true
+  vars:
+    webserver: http
+    pgadmin: mariadb-server
+    db_service: mariadb
   tasks:
-   - name: this is failure task
+   block:
      yum:
-       name: pp
-       state: present
+      name: {{ webserver }}
+      state: present
+   rescue:
+     - name: print if any fail 
+       debug:
+        msg: echo "{{ webserver }} got failed"  
+   always:
+     debug:
+       msg: always execute      
 
+      
