@@ -3,7 +3,7 @@
   hosts: all
   become: yes  # optional: required if installing packages
   vars:
-    webserver: http
+    webserver: httpd
     pgadmin: mariadb-server
     db_service: mariadb
 
