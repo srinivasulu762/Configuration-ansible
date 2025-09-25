@@ -1,26 +1,7 @@
 ---
-- name: creating rescue and block, always
-  hosts: all
-  become: yes  # optional: required if installing packages
-  vars:
-    webserver: httpd
-    pgadmin: mariadb-server
-    db_service: mariadb
-
+- name: using impot and include option 
+  hosts: all 
+  gather_facts: true 
   tasks:
-    - name: Try to install webserver package
-      block:
-        - name: Install webserver package
-          yum:
-            name: "{{ webserver }}"
-            state: present
-
-      rescue:
-        - name: Print if installation fails
-          debug:
-            msg: "{{ webserver }} installation failed"
-
-      always:
-        - name: Always runs at the end
-          debug:
-            msg: "This task always executes"
+    - include_tasks: http.yaml
+       
