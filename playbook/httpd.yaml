@@ -1,6 +1,7 @@
 ---
 - name: using impot and include option 
   hosts: all 
+  become: true
   gather_facts: true 
   tasks:
     - include_tasks: http.yaml
