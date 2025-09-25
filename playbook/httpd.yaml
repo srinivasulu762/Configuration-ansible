@@ -5,4 +5,5 @@
   gather_facts: true 
   tasks:
     - include_tasks: http.yaml
+    - import_tasks: var.yaml
        
