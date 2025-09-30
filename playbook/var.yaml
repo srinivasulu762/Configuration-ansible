@@ -1,3 +1,0 @@
-- name: Print contents of script.sh
-  debug:
-    msg: "{{ lookup('file', '/var/lib/jenkins/workspace/Ansible configuration/script.sh') }}"

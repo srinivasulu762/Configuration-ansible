@@ -27,7 +27,7 @@ pipeline {
                     usernameVariable: 'username'
                 )]) {
                     script {
-                        echo "Using keyfile: ${ssh}, username: ${username}"
+                        echo "Using keyfile: ${ssh}, username: ${user name}"
                         def result = sh(
                             script: "ANSIBLE_HOST_KEY_CHECKING=False ansible all -i inventory/dev.ini -m ping --private-key \"${ssh}\"",
                             returnStatus: true
@@ -37,7 +37,7 @@ pipeline {
                         } else {
                             echo "✅ Remote connection check succeeded."
                         }
-                    }
+                    } 
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
                     credentialsId: 'ansible-ssh',
                     installation: 'ansible-1.0',
                     inventory: 'inventory/hosts.ini',
-                    playbook: 'playbook/httpd.yaml'
+                    playbook: 'playbook/roles.yaml'
                 )
             }
         }
