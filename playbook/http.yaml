@@ -4,5 +4,6 @@
   become: true
   tasks:
     - name: Install Java
-      yum: name:"{{javapackageversion}}"
-      state: present
+      yum:
+       name: git
+       state: present
