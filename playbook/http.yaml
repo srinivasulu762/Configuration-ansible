@@ -2,12 +2,9 @@
 - name: Create users in Linux
   hosts: all
   become: true
-  vars_files:
-    - var.yaml
-
   tasks:
-    - name: Create user raju
-      ansible.builtin.user:
-        name: raju
-        password: "{{ password }}"
-        shell: /bin/bash
+  - name: Create user raju
+    ansible.builtin.user:
+      name: raju
+      password: "{{ password }}"
+      shell: /bin/bash
