@@ -2,13 +2,7 @@ pipeline {
     agent any
 
 
-  parameters {
-        choice(
-            choices: ['dev', 'qa', 'prod'], 
-            description: 'Select the inventory environment', 
-            name: 'env'
-        )
-    }
+  
 
     stages {
         stage('Git Clone') {

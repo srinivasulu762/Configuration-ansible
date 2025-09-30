@@ -1,10 +1,9 @@
 ---
-- name: Create users in Linux
+- name: Install Java on all Linux hosts
   hosts: all
   become: true
   tasks:
-  - name: Create user raju
-    ansible.builtin.user:
-      name: raju
-      password: "{{ password }}"
-      shell: /bin/bash
+    - name: Install Java
+      yum:
+        name: "{{ javapackageversion }}"
+        state: present
